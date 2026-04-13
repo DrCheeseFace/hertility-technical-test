@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import "./App.css";
+import "./tooltip.css";
 import React from "react";
 
 interface HormoneResults {
@@ -78,7 +79,14 @@ function App() {
               <div className="resultsItem" key={result.id}>
                 <p>{result.id}</p>
                 <p>{result.userId}</p>
-                <p>{result.inRange ? "IN RANGE" : "NOT IN RANGE"}</p>
+
+                <div className="resultsItem tooltip">
+                  <p>{result.inRange ? "IN RANGE" : "NOT IN RANGE"}</p>
+                  <span className="tooltipText">
+                    Results are {result.inRange ? "within" : "outside"} the
+                    expected hormone levels.
+                  </span>
+                </div>
               </div>
             );
           })}

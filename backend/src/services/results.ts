@@ -9,13 +9,13 @@ export async function fetchResults() {
 
   const results: Results[] = dbResults.map((result) => ({
     ...result,
-    inRange: getResultsStatus(result, ranges),
+    inRange: isResultInRange(result, ranges),
   }));
 
   return results;
 }
 
-function getResultsStatus(results: ResultsDb, ranges: HormoneRanges): boolean {
+function isResultInRange(results: ResultsDb, ranges: HormoneRanges): boolean {
   return results.hormoneResults.every((hormone) => {
     const range = ranges[hormone.code];
 
