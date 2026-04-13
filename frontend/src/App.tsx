@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
-import './App.css'
-import React from 'react';
+import { useEffect } from "react";
+import "./App.css";
+import React from "react";
 
 interface HormoneResults {
   code: string;
@@ -12,31 +12,31 @@ interface Results {
   id: number;
   userId: number;
   hormoneResults: Array<HormoneResults>;
+  inRange: boolean;
 }
 
 const fetchResults = async () => {
   try {
-    const res = await fetch("http://localhost:52863/results")
-    const json = await res.json()
-    return json as Results[]
+    const res = await fetch("http://localhost:52863/results");
+    const json = await res.json();
+    return json as Results[];
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
-  return []
-}
+  return [];
+};
 
 function App() {
-
-  const [results, setResults] = React.useState<Results[]>([])
+  const [results, setResults] = React.useState<Results[]>([]);
 
   useEffect(() => {
-    fetchResults().then(results => {
-      setResults(results)
-    })
-  }, [])
+    fetchResults().then((results) => {
+      setResults(results);
+    });
+  }, []);
 
   return (
-    <div> 
+    <div>
       <h2>Hertility admin dashboard</h2>
       <h1>Hormone results</h1>
 
@@ -47,22 +47,19 @@ function App() {
           <p>status</p>
         </div>
         <div className="resultsList">
-          {
-            results.map(result => {
-
-              return (
-                <div className="resultsItem" key={result.id}>
-                    <p>{result.id}</p>
-                    <p>{result.userId}</p>
-                    <p></p>
-                </div>
-              )
-            })
-          }
+          {results.map((result) => {
+            return (
+              <div className="resultsItem" key={result.id}>
+                <p>{result.id}</p>
+                <p>{result.userId}</p>
+                <p>{result.inRange ? "IN RANGE" : "NOT IN RANGE"}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
